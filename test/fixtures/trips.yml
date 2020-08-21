@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  location: MyString
+  campground: MyString
+  arrival: 2020-08-21
+  departure: 2020-08-21
+
+two:
+  location: MyString
+  campground: MyString
+  arrival: 2020-08-21
+  departure: 2020-08-21
