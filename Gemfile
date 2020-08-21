@@ -38,4 +38,5 @@ group :development do
 end
 
 gem 'active_model_serializers'
- gem'bcrypt'
+gem'bcrypt'
+gem 'fast_jsonapi'

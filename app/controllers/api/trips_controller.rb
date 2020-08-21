@@ -2,7 +2,7 @@ class Api::TripsController < ApplicationController
 
     def index
         trips = Trip.all 
-        render json: trips
+        render json: TripSerializer.new(trips)
     end
 
     def create
@@ -11,6 +11,7 @@ class Api::TripsController < ApplicationController
             render json: trip, status: :accepted
         else
             render json: {errors: syllabus.errors.full_messages}, status: :unprocessible_entity
+        end
     end
 
     private 
