@@ -6,11 +6,11 @@ class Api::TripsController < ApplicationController
     end
 
     def create
-        trip = Syllabus.new(trip_params)
-        if syllabus.save
+        trip = Trip.new(trip_params)
+        if trip.save
             render json: trip, status: :accepted
         else
-            render json: {errors: syllabus.errors.full_messages}, status: :unprocessible_entity
+            render json: {errors: trip.errors.full_messages}, status: :unprocessible_entity
         end
     end
 

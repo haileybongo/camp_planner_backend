@@ -40,3 +40,4 @@ end
 gem 'active_model_serializers'
 gem'bcrypt'
 gem 'fast_jsonapi'
+gem 'pry'

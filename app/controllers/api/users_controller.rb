@@ -1,6 +1,7 @@
 class Api::UsersController < ApplicationController
 
     def welcome
+        render json: 
     end
 
     def new 
