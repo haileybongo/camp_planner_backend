@@ -1,4 +1,4 @@
 class Trip < ApplicationRecord
     belongs_to :user, optional: true
-    has_many :items
+    has_one :item
 end
