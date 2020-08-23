@@ -6,14 +6,14 @@ class Api::TripsController < ApplicationController
     end
 
     def create
-        binding.pry
+   
         trip = Trip.new(trip_params)
         list = Item.find(params[:item])
 
 
         if trip.save
             trip.item = list
-            binding.pry
+          
             render json: trip, status: :accepted
         else
             render json: {errors: trip.errors.full_messages}, status: :unprocessible_entity
