@@ -13,8 +13,7 @@ class Api::TripsController < ApplicationController
 
         if trip.save
             trip.item = list
-          
-            render json: trip, status: :accepted
+            render json: TripSerializer.new(trip), status: :accepted
         else
             render json: {errors: trip.errors.full_messages}, status: :unprocessible_entity
         end
