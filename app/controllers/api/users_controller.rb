@@ -1,13 +1,13 @@
 class Api::UsersController < ApplicationController
-
+skip_before_action :authorized, only: [:create]
 
     def create
         if params[:user][:password] == params[:user][:password_confirmation]
             @user = User.create(user_params)
             if @user.valid? 
                 @user.save
-                session[:user_id] = @user.id
-                render json: {user: UserSerializer.new(@user)}, status: :created
+                @token = encode_token(user_id: @user.id)
+                render json: {user: UserSerializer.new(@user), jwt: @token}, status: :created
             else
                 render json: {error: @user.errors.full_messages}, status: :not_acceptable
             end
