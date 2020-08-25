@@ -13,9 +13,9 @@ class Api::TripsController < ApplicationController
 
 
         if trip.save
-            trip.item = list
-            
+            trip.item = list    
             trip.user= current_user
+            trip.save
             render json: TripSerializer.new(trip), status: :accepted
         else
             render json: {errors: trip.errors.full_messages}, status: :unprocessible_entity
