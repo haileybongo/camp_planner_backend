@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::API
-before_action :authorized 
+    before_action :authorized
+
 
     def encode_token(payload)
         JWT.encode(payload, Rails.application.credentials.dig(:application_secret))
@@ -22,6 +23,7 @@ before_action :authorized
             nil
         end
     end
+end     
 
     def current_user
         if decoded_token
@@ -33,10 +35,9 @@ before_action :authorized
       def logged_in?
         !!current_user
       end
-    end
+   
 
     def authorized
         render json: { message: 'Please log in' }, status: :unauthorized unless logged_in?
       end
-
 end
