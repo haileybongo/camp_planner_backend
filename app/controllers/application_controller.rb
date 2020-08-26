@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::API
+  include ActionController::Cookies
+  include ActionController::RequestForgeryProtection
     before_action :authorized
 
 
@@ -11,7 +13,9 @@ class ApplicationController < ActionController::API
     end
 
     def auth_header
+      binding.pry
         request.headers['Authorization']
+
     end
     
     def decoded_token
