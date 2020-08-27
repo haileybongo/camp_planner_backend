@@ -8,15 +8,20 @@ class Api::TripsController < ApplicationController
 
     def create
    
-        trip = Trip.new(trip_params)
-        list = Item.find(params[:item])
+        trip = Trip.create(trip_params)
+        list = Item.find(params[:item_id])
 
-
-        if trip.save
+        binding.pry
+        if trip.valid?
             trip.item = list    
             trip.user= current_user
             trip.save
+            if trip.item != nil
             render json: TripSerializer.new(trip), status: :accepted
+            else
+                render json: {errors: "Something went wrong, please try again"}
+            end
+
         else
             render json: {errors: trip.errors.full_messages}, status: :unprocessible_entity
         end
@@ -25,7 +30,7 @@ class Api::TripsController < ApplicationController
     private 
     
     def trip_params
-        params.require(:trip).permit(:location, :campground, :arrival, :departure, :user_id)
+        params.require(:trip).permit(:location, :campground, :arrival, :departure, :user_id, :item_id)
     end
 
 end

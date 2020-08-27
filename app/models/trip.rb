@@ -1,4 +1,4 @@
 class Trip < ApplicationRecord
     belongs_to :user, optional: true
-    has_one :item, dependent: :destroy
+    belongs_to :item, :dependent => :destroy, optional: false 
 end
