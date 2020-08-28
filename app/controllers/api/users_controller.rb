@@ -1,39 +1,22 @@
 class Api::UsersController < ApplicationController
-
-    def welcome
-    end
-
-    def new 
-        @user = User.new
-    end
+skip_before_action :authorized, only: [:create]
 
     def create
         if params[:user][:password] == params[:user][:password_confirmation]
             @user = User.create(user_params)
             if @user.valid? 
                 @user.save
-                session[:user_id] = @user.id
-                redirect_to user_path(@user)
+                @token = encode_token(user_id: @user.id)
+                render json: {user: UserSerializer.new(@user), jwt: @token}, status: :created
             else
-                flash[:alert] = @user.errors.full_messages
-                redirect_to '/signup'
+                render json: {error: @user.errors.full_messages}, status: :not_acceptable
             end
         else
-            redirect_to '/signup', notice: "Passwords do not match. Please try again."
+            render json: { error: "Passwords do not match. Please try again." }, status: :not_acceptable
         end
     end
 
 
-
-    def show
-        if params[:id].to_i == session[:user_id]
-        @needs_water = current_user.needs_water
-        @user = current_user
-        else
-            flash[:msg] = "Sorry, you can only view your own profile."
-            redirect_to user_path(current_user)
-        end
-    end
    
     private
    
