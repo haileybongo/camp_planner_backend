@@ -10,8 +10,7 @@ class Api::TripsController < ApplicationController
    
         trip = Trip.create(trip_params)
         list = Item.find(params[:item_id])
-
-        binding.pry
+        
         if trip.valid?
             trip.item = list    
             trip.user= current_user
