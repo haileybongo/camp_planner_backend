@@ -26,6 +26,15 @@ class Api::TripsController < ApplicationController
         end
     end
 
+    def destroy
+        trip = Trip.find(params[:id])
+        trip.item_id = nil
+        trip.destroy
+        binding.pry
+        render json: "Successfully Deleted"
+    end
+
+
     private 
     
     def trip_params
